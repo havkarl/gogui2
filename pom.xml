@@ -29,7 +29,6 @@
         <module>thumbnailer</module>
         <module>twogtp</module>
         <module>dummy</module>
-        <module>gogui</module>
     </modules>
 
     <properties>
