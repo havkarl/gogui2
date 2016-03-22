@@ -69,7 +69,7 @@ Do not edit Info.plist
 <key>JVMVersion</key>
 <string>1.5+</string>
 <key>MainClass</key>
-<string>net.sf.gogui.gogui.MainWrapper</string>
+<string>MainWrapper</string>
 </dict>
 
 </dict>

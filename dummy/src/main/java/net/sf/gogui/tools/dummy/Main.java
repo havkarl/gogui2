@@ -17,7 +17,7 @@ public final class Main
         try
         {
             String options[] = {
-                "config:",
+                "net.sf.gogui.xml.config:",
                 "help",
                 "log:",
                 "resign:",
@@ -30,7 +30,7 @@ public final class Main
                 String helpText =
                     "Usage: gogui-dummy [options]\n" +
                     "\n" +
-                    "-config    config file\n" +
+                    "-net.sf.gogui.xml.config    net.sf.gogui.xml.config file\n" +
                     "-help      display this help and exit\n" +
                     "-log file  log GTP stream to file\n" +
                     "-resign n  resign at n'th genmove\n" +

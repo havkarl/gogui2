@@ -52,20 +52,20 @@ Build file for Apache Ant (http://ant.apache.org/)
  COPYING.html
  INSTALL.html
  build.xml
- config/go.dtd
- config/gogui.desktop
- config/gogui.thumbnailer
- config/gogui.png
- config/application-x-go-sgf.png
- config/gogui.schemas
- config/gogui-mime.xml
- doc/README.html
- doc/manual/xml/*.xml
- doc/manual/xml/*.xml.in
- doc/manual/xml/*.xsl
- doc/doxygen/Doxyfile
- doc/doxygen/footer.html
- doc/doxygen/README.html
+ net.sf.gogui.xml.config/go.dtd
+ net.sf.gogui.xml.config/gogui.desktop
+ net.sf.gogui.xml.config/gogui.thumbnailer
+ net.sf.gogui.xml.config/gogui.png
+ net.sf.gogui.xml.config/application-x-go-sgf.png
+ net.sf.gogui.xml.config/gogui.schemas
+ net.sf.gogui.xml.config/gogui-mime.xml
+ net.sf.gogui.xml.doc/README.html
+ net.sf.gogui.xml.doc/manual/xml/*.xml
+ net.sf.gogui.xml.doc/manual/xml/*.xml.in
+ net.sf.gogui.xml.doc/manual/xml/*.xsl
+ net.sf.gogui.xml.doc/doxygen/Doxyfile
+ net.sf.gogui.xml.doc/doxygen/footer.html
+ net.sf.gogui.xml.doc/doxygen/README.html
  mac/packaging/GoGui.icns
  mac/packaging/Info.plist.in
  mac/packaging/PkgInfo
@@ -101,7 +101,7 @@ Build file for Apache Ant (http://ant.apache.org/)
  windows/nsis/install.nsis.in
 "
   excludes="
- doc/manual/xml/version.xml
+ net.sf.gogui.xml.doc/manual/xml/version.xml
  src/net/sf/gogui/version/Version.java
  windows/l4j/gogui.xml
 "
@@ -123,9 +123,9 @@ Build file for Apache Ant (http://ant.apache.org/)
  bin/gogui-twogtp,
 "/>
 <zipfileset id="distfiles-nonsrc" prefix="gogui-${version}" dir="." includes="
- doc/manual/html/*.html
- doc/manual/html/*.png
- doc/manual/man/*.1
+ net.sf.gogui.xml.doc/manual/html/*.html
+ net.sf.gogui.xml.doc/manual/html/*.png
+ net.sf.gogui.xml.doc/manual/man/*.1
  lib/*.jar
  mac/packaging/Info.plist
  windows/nsis/install.nsis
@@ -215,7 +215,7 @@ option -Dquaqua.ignore=true.
 "/>
 </copy>
 <copy todir="build/classes/net/sf/gogui/doc">
-<fileset dir="src/main/resources/doc/manual/html" includes="*.html *.png"/>
+<fileset dir="gogui/src/main/resources/net/sf/gogui/dock/manual/html" includes="*.html *.png"/>
 </copy>
 <mkdir dir="build/specialmac"/>
 <javac srcdir="mac/src" destdir="build/specialmac" source="1.5"
@@ -251,7 +251,7 @@ option -Dquaqua.ignore=true.
 <delete file="gogui-${version}-src.tar"/>
 </target>
 
-<target name="doc" depends="doc-check-uptodate"
+<target name="net.sf.gogui.xml.doc" depends="doc-check-uptodate"
  unless="doc-uptodate"
  description="Generate documentation using xsltproc">
   <fail unless="docbook.xsl-available">
@@ -265,18 +265,18 @@ with "directory" replaced by the location of the docbook-xsl directory.
 <echo message="Running xsltproc"/>
 <exec executable="${xsltproc}" failonerror="true">
 <arg line="--path ${docbook-xsl.dir}/html"/>
-<arg line="-o doc/manual/html/"/>
-<arg line="doc/manual/xml/custom.xsl"/>
-<arg line="doc/manual/xml/book.xml"/>
+<arg line="-o net.sf.gogui.xml.doc/manual/html/"/>
+<arg line="net.sf.gogui.xml.doc/manual/xml/custom.xsl"/>
+<arg line="net.sf.gogui.xml.doc/manual/xml/book.xml"/>
 </exec>
 <!-- Remove empty div sections that create unwanted space in JEditorPane -->
-<replace dir="src/main/resources/doc/manual/html" includes="*.html"
+<replace dir="gogui/src/main/resources/net/sf/gogui/dock/manual/html" includes="*.html"
  token="&lt;div&gt;&lt;/div&gt;" encoding="UTF-8"/>
 <exec executable="xsltproc" failonerror="true">
 <arg line="--param chunk.quietly 1"/>
-<arg line="-o doc/manual/man/"/>
+<arg line="-o net.sf.gogui.xml.doc/manual/man/"/>
 <arg line="${docbook-xsl.dir}/manpages/docbook.xsl"/>
-<arg line="doc/manual/xml/manpages.xml"/>
+<arg line="net.sf.gogui.xml.doc/manual/xml/manpages.xml"/>
 </exec>
 </target>
 
@@ -285,9 +285,9 @@ Generate documentation using ant xslt target.
 Not used at present due to problems with mdash in output (not understood
 by JEditorPane, slow speed and errors with old versions of Xalan)
 -->
-<target name="doc-xslt" depends="doc-check-uptodate"
+<target name="net.sf.gogui.xml.doc-xslt" depends="doc-check-uptodate"
  unless="doc-uptodate">
-<xslt basedir="src/main/resources/doc/manual/xml" includes="book.xml" destdir="src/main/resources/doc/manual/html"
+<xslt basedir="gogui/src/main/resources/net/sf/gogui/dock/manual/xml" includes="book.xml" destdir="gogui/src/main/resources/net/sf/gogui/dock/manual/html"
  style="${docbook-xsl.dir}/html/chunk.xsl" force="true">
 <xmlcatalog>
 <dtd
@@ -306,7 +306,7 @@ http://www.oasis-open.org/docbook/xml/4.2/docbook-xml-4.2.zip
 and invoke ant with the option -Ddocbook.dtd-4.2=location
 with "location" replaced by the location of the file docbookx.dtd.
   </fail>
-<xmlvalidate file="src/main/resources/doc/manual/xml/book.xml">
+<xmlvalidate file="gogui/src/main/resources/net/sf/gogui/dock/manual/xml/book.xml">
   <xmlcatalog>
     <dtd publicId="-//OASIS//DTD DocBook XML V4.2//EN"
 	 location="${docbook.dtd-4.2}"/>
@@ -314,16 +314,16 @@ with "location" replaced by the location of the file docbookx.dtd.
 </xmlvalidate>
 </target>
 
-<target name="doc-check-uptodate">
-<uptodate property="doc-uptodate" targetfile="src/main/resources/doc/manual/html/index.html">
-<srcfiles dir= "src/main/resources/doc/manual/xml" includes="*.xml"/>
-<srcfiles dir= "src/main/resources/doc/manual/xml" includes="*.xsl"/>
+<target name="net.sf.gogui.xml.doc-check-uptodate">
+<uptodate property="net.sf.gogui.xml.doc-uptodate" targetfile="gogui/src/main/resources/net/sf/gogui/dock/manual/html/index.html">
+<srcfiles dir= "gogui/src/main/resources/net/sf/gogui/dock/manual/xml" includes="*.xml"/>
+<srcfiles dir= "gogui/src/main/resources/net/sf/gogui/dock/manual/xml" includes="*.xsl"/>
 </uptodate>
 </target>
 
 <target name="doxygen"
  description="Generate source code documentation using doxygen">
-<exec executable="doxygen" dir="src/main/resources/doc/doxygen"/>
+<exec executable="doxygen" dir="gogui/src/main/resources/net/sf/gogui/dock/doxygen"/>
 </target>
 
 <target name="findbugs" depends="compile"
@@ -359,7 +359,7 @@ with "location" replaced by the location of the file docbookx.dtd.
 <fileset dir="mac/packaging" includes="GoGui.icns"/>
 </copy>
 <copy todir="${appdir}/Contents/Resources/GoGui Help" overwrite="true">
-<fileset dir="src/main/resources/doc/manual/html" includes="*.html *.png"/>
+<fileset dir="gogui/src/main/resources/net/sf/gogui/dock/manual/html" includes="*.html *.png"/>
 </copy>
 <replace file="${appdir}/Contents/Resources/GoGui Help/index.html"
  token="&lt;head&gt;"
@@ -395,7 +395,7 @@ with "location" replaced by the location of the file docbookx.dtd.
   <mkdir dir="build"/>
   <mkdir dir="build/manifests"/>
   <manifest file="build/manifests/gogui.mf" mode="replace">
-    <attribute name="Main-Class" value="net.sf.gogui.gogui.MainWrapper"/>
+    <attribute name="Main-Class" value="MainWrapper"/>
     <attribute name="Built-By" value="${user.name}"/>
     <attribute name="Build-Date" value="${dstamp}"/>
   </manifest>
@@ -407,8 +407,8 @@ with "location" replaced by the location of the file docbookx.dtd.
 <jar destfile="lib/gogui.jar" manifest="build/manifests/gogui.mf"
      compress="true" level="9">
 <fileset dir="build/classes" includes="
- net/sf/gogui/doc/*.html
- net/sf/gogui/doc/*.png
+ net/sf/gogui/net.sf.gogui.xml.doc/*.html
+ net/sf/gogui/net.sf.gogui.xml.doc/*.png
  net/sf/gogui/boardpainter/*.class
  net/sf/gogui/game/*.class
  net/sf/gogui/gamefile/*.class
@@ -743,7 +743,7 @@ with "location" replaced by the location of the file docbookx.dtd.
     <arg line="windows/nsis/install.nsis"/>
   </exec>
 </target>
-  
+
 <target name="pmd" depends="compile"
  description="Run PMD (pmd.sourceforge.net)">
 <mkdir dir="test/pmd"/>

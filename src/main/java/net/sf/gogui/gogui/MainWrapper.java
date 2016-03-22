@@ -28,7 +28,7 @@ public final class MainWrapper
         {
             settings =
                 new GoGuiSettings(args,
-                                  Class.forName("net.sf.gogui.gogui.GoGui"));
+                                  Class.forName("GoGui"));
             if (settings.m_noStartup)
                 return;
         }
@@ -42,9 +42,9 @@ public final class MainWrapper
             System.err.println(e.getMessage());
             return;
         }
-        Class<?> mainClass = Class.forName("net.sf.gogui.gogui.Main");
+        Class<?> mainClass = Class.forName("Main");
         Class<?> settingsClass =
-            Class.forName("net.sf.gogui.gogui.GoGuiSettings");
+            Class.forName("GoGuiSettings");
         Method mainMethod = mainClass.getMethod("main", settingsClass);
         assert (mainMethod.getModifiers() & Modifier.STATIC) != 0;
         assert mainMethod.getReturnType() == void.class;

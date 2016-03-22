@@ -27,7 +27,7 @@ public final class Main
                 "auto",
                 "black:",
                 "compare",
-                "config:",
+                "net.sf.gogui.xml.config:",
                 "debugtocomment",
                 "force",
                 "games:",
@@ -58,7 +58,7 @@ public final class Main
                    "-auto           autoplay games\n" +
                    "-black          command for black program\n" +
                    "-compare        compare list of sgf files\n" +
-                   "-config         config file\n" +
+                   "-net.sf.gogui.xml.config         net.sf.gogui.xml.config file\n" +
                    "-debugtocomment save stderr of programs in SGF comments\n" +
                    "-force          overwrite existing files\n" +
                    "-games          number of games (0=unlimited)\n" +

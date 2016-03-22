@@ -27,7 +27,6 @@ import java.io.PrintStream;
 import java.io.Reader;
 import java.io.StringReader;
 import java.net.URL;
-import static java.text.MessageFormat.format;
 import java.util.ArrayList;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
@@ -62,6 +61,8 @@ import net.sf.gogui.go.ConstBoard;
 import net.sf.gogui.go.ConstPointList;
 import net.sf.gogui.go.CountScore;
 import net.sf.gogui.go.GoColor;
+
+import static java.text.MessageFormat.format;
 import static net.sf.gogui.go.GoColor.BLACK;
 import static net.sf.gogui.go.GoColor.WHITE;
 import static net.sf.gogui.go.GoColor.EMPTY;
@@ -72,7 +73,6 @@ import net.sf.gogui.go.Move;
 import net.sf.gogui.go.PointList;
 import net.sf.gogui.go.Score;
 import net.sf.gogui.go.Score.ScoringMethod;
-import static net.sf.gogui.gogui.I18n.i18n;
 import net.sf.gogui.gtp.AnalyzeCommand;
 import net.sf.gogui.gtp.AnalyzeDefinition;
 import net.sf.gogui.gtp.AnalyzeType;
@@ -326,23 +326,23 @@ public class GoGui
     {
         if (m_gameFile == null)
         {
-            showError(i18n("MSG_CANNOT_SET_BOOKMARK_NO_FILE"),
-                      i18n("MSG_CANNOT_SET_BOOKMARK_NO_FILE_2"),
+            showError(I18n.i18n("MSG_CANNOT_SET_BOOKMARK_NO_FILE"),
+                      I18n.i18n("MSG_CANNOT_SET_BOOKMARK_NO_FILE_2"),
                       false);
             return;
         }
         if (isModified())
         {
-            showError(i18n("MSG_CANNOT_SET_BOOKMARK_MODIFIED"),
-                      i18n("MSG_CANNOT_SET_BOOKMARK_MODIFIED_2"),
+            showError(I18n.i18n("MSG_CANNOT_SET_BOOKMARK_MODIFIED"),
+                      I18n.i18n("MSG_CANNOT_SET_BOOKMARK_MODIFIED_2"),
                       false);
             return;
         }
         if (getCurrentNode().getFatherConst() != null
             && getCurrentNode().getMove() == null)
         {
-            showError(i18n("MSG_CANNOT_SET_BOOKMARK_NODE"),
-                      i18n("MSG_CANNOT_SET_BOOKMARK_NODE_2"),
+            showError(I18n.i18n("MSG_CANNOT_SET_BOOKMARK_NODE"),
+                      I18n.i18n("MSG_CANNOT_SET_BOOKMARK_NODE_2"),
                       false);
             return;
         }
@@ -350,7 +350,7 @@ public class GoGui
         int move = NodeUtil.getMoveNumber(getCurrentNode());
         Bookmark bookmark = new Bookmark(m_gameFile.m_file, move, variation);
         BookmarkEditor editor = new BookmarkEditor();
-        bookmark = editor.editItem(this, i18n("TIT_ADD_BOOKMARK"), bookmark,
+        bookmark = editor.editItem(this, I18n.i18n("TIT_ADD_BOOKMARK"), bookmark,
                                    true, m_messageDialogs);
         if (bookmark == null)
             return;
@@ -476,11 +476,11 @@ public class GoGui
             return;
         if (! NodeUtil.isInMainVariation(getCurrentNode()))
             return;
-        String disableKey = "net.sf.gogui.gogui.GoGui.delete-side-variations";
+        String disableKey = "GoGui.delete-side-variations";
         if (! m_messageDialogs.showQuestion(disableKey, this,
-                                            i18n("MSG_DELETE_VARIATIONS"),
-                                            i18n("MSG_DELETE_VARIATIONS_2"),
-                                            i18n("LB_DELETE"),
+                                            I18n.i18n("MSG_DELETE_VARIATIONS"),
+                                            I18n.i18n("MSG_DELETE_VARIATIONS_2"),
+                                            I18n.i18n("LB_DELETE"),
                                             false))
             return;
         m_game.keepOnlyMainVariation();
@@ -492,10 +492,10 @@ public class GoGui
         if (m_gtp == null)
             return;
         if (isCommandInProgress()
-            && ! showQuestion(format(i18n("MSG_TERMINATE_COMMAND_IN_PROGRESS"),
+            && ! showQuestion(format(I18n.i18n("MSG_TERMINATE_COMMAND_IN_PROGRESS"),
                                      getProgramLabel()),
-                              i18n("MSG_TERMINATE_COMMAND_IN_PROGRESS_2"),
-                              i18n("LB_TERMINATE"), true))
+                              I18n.i18n("MSG_TERMINATE_COMMAND_IN_PROGRESS_2"),
+                              I18n.i18n("LB_TERMINATE"), true))
             return;
         m_prefs.putInt("program", -1);
         protectGui();
@@ -541,16 +541,16 @@ public class GoGui
     public void actionHelp()
     {
         ClassLoader classLoader = getClass().getClassLoader();
-        URL url = classLoader.getResource("net/sf/gogui/doc/index.html");
+        URL url = classLoader.getResource("net/sf/gogui/net.sf.gogui.xml.doc/index.html");
         if (url == null)
         {
-            showError(i18n("MSG_HELP_NOT_FOUND"), "");
+            showError(I18n.i18n("MSG_HELP_NOT_FOUND"), "");
             return;
         }
         if (m_help == null)
         {
             m_help = new Help(url, m_messageDialogs,
-                              i18n("TIT_HELP") + " - " + i18n("LB_GOGUI"));
+                              I18n.i18n("TIT_HELP") + " - " + I18n.i18n("LB_GOGUI"));
             m_session.restoreSize(m_help.getWindow(), "help");
         }
         m_help.getWindow().setVisible(true);
@@ -562,7 +562,7 @@ public class GoGui
         BookmarkEditor editor = new BookmarkEditor();
         ObjectListEditor<Bookmark> listEditor =
             new ObjectListEditor<Bookmark>();
-        if (! listEditor.edit(this, i18n("TIT_EDIT_BOOKMARKS"), m_bookmarks,
+        if (! listEditor.edit(this, I18n.i18n("TIT_EDIT_BOOKMARKS"), m_bookmarks,
                               editor, m_messageDialogs))
             return;
         m_menuBar.setBookmarks(m_bookmarks);
@@ -572,9 +572,9 @@ public class GoGui
     public void actionEditLabel(GoPoint point)
     {
         String value = getCurrentNode().getLabel(point);
-        Object message = format(i18n("MSG_EDIT_LABEL"), point);
+        Object message = format(I18n.i18n("MSG_EDIT_LABEL"), point);
         value = (String)JOptionPane.showInputDialog(this, message,
-                                                    i18n("TIT_EDIT_LABEL"),
+                                                    I18n.i18n("TIT_EDIT_LABEL"),
                                                     JOptionPane.PLAIN_MESSAGE,
                                                     null, null, value);
         if (value == null)
@@ -588,7 +588,7 @@ public class GoGui
     {
         ProgramEditor editor = new ProgramEditor();
         ObjectListEditor<Program> listEditor = new ObjectListEditor<Program>();
-        if (! listEditor.edit(this, i18n("TIT_EDIT_PROGRAMS"), m_programs,
+        if (! listEditor.edit(this, I18n.i18n("TIT_EDIT_PROGRAMS"), m_programs,
                               editor, m_messageDialogs))
             return;
         m_menuBar.setPrograms(m_programs);
@@ -603,7 +603,7 @@ public class GoGui
 
     public void actionExportLatexMainVariation()
     {
-        File file = showSave(i18n("TIT_EXPORT_LATEX"));
+        File file = showSave(I18n.i18n("TIT_EXPORT_LATEX"));
         if (file == null)
             return;
         try
@@ -615,13 +615,13 @@ public class GoGui
         }
         catch (FileNotFoundException e)
         {
-            showError(i18n("MSG_EXPORT_FAILED"), e);
+            showError(I18n.i18n("MSG_EXPORT_FAILED"), e);
         }
     }
 
     public void actionExportLatexPosition()
     {
-        File file = showSave(i18n("TIT_EXPORT_LATEX_POSITION"));
+        File file = showSave(I18n.i18n("TIT_EXPORT_LATEX_POSITION"));
         if (file == null)
             return;
         try
@@ -639,7 +639,7 @@ public class GoGui
         }
         catch (FileNotFoundException e)
         {
-            showError(i18n("MSG_EXPORT_FAILED"), e);
+            showError(I18n.i18n("MSG_EXPORT_FAILED"), e);
         }
     }
 
@@ -654,13 +654,13 @@ public class GoGui
         }
         catch (FileNotFoundException e)
         {
-            showError(i18n("MSG_EXPORT_FAILED"), e);
+            showError(I18n.i18n("MSG_EXPORT_FAILED"), e);
         }
     }
 
     public void actionExportTextPosition()
     {
-        File file = showSave(i18n("MSG_EXPORT_TEXT"));
+        File file = showSave(I18n.i18n("MSG_EXPORT_TEXT"));
         if (file == null)
             return;
         try
@@ -672,7 +672,7 @@ public class GoGui
         }
         catch (FileNotFoundException e)
         {
-            showError(i18n("MSG_EXPORT_FAILED"), e);
+            showError(I18n.i18n("MSG_EXPORT_FAILED"), e);
         }
     }
 
@@ -708,7 +708,7 @@ public class GoGui
         if (m_pattern == null)
             return;
         protectGui();
-        showStatus(i18n("STAT_FIND_SEARCHING_COMMENTS"));
+        showStatus(I18n.i18n("STAT_FIND_SEARCHING_COMMENTS"));
         Runnable runnable = new Runnable() {
                 public void run() {
                     try
@@ -721,9 +721,9 @@ public class GoGui
                         if (node == null && getCurrentNode() != root)
                         {
                             unprotectGui();
-                            if (showQuestion(i18n("MSG_FIND_CONTINUE"),
-                                             i18n("MSG_FIND_CONTINUE_2"),
-                                             i18n("LB_FIND_CONTINUE"), false))
+                            if (showQuestion(I18n.i18n("MSG_FIND_CONTINUE"),
+                                             I18n.i18n("MSG_FIND_CONTINUE_2"),
+                                             I18n.i18n("LB_FIND_CONTINUE"), false))
                             {
                                 protectGui();
                                 node = root;
@@ -741,8 +741,8 @@ public class GoGui
                             if (node == null)
                             {
                                 unprotectGui();
-                                showInfo(i18n("MSG_FIND_NOT_FOUND"),
-                                         format(i18n("MSG_FIND_NOT_FOUND_2"),
+                                showInfo(I18n.i18n("MSG_FIND_NOT_FOUND"),
+                                         format(I18n.i18n("MSG_FIND_NOT_FOUND_2"),
                                                 m_pattern),
                                          false);
                                 m_pattern = null;
@@ -770,7 +770,7 @@ public class GoGui
         if (! checkStateChangePossible())
             return;
         protectGui();
-        showStatus(i18n("STAT_FIND_SEARCHING_COMMENTS"));
+        showStatus(I18n.i18n("STAT_FIND_SEARCHING_COMMENTS"));
         Runnable runnable = new Runnable() {
                 public void run() {
                     try
@@ -782,9 +782,9 @@ public class GoGui
                         if (node == null && getCurrentNode() != root)
                         {
                             unprotectGui();
-                            if (showQuestion(i18n("MSG_FIND_CONTINUE"),
-                                             i18n("MSG_FIND_CONTINUE_2"),
-                                             i18n("LB_FIND_CONTINUE"), false))
+                            if (showQuestion(I18n.i18n("MSG_FIND_CONTINUE"),
+                                             I18n.i18n("MSG_FIND_CONTINUE_2"),
+                                             I18n.i18n("LB_FIND_CONTINUE"), false))
                             {
                                 protectGui();
                                 node = root;
@@ -799,7 +799,7 @@ public class GoGui
                             if (node == null)
                             {
                                 unprotectGui();
-                                showInfo(i18n("MSG_FIND_NO_COMMENT_FOUND"),
+                                showInfo(I18n.i18n("MSG_FIND_NO_COMMENT_FOUND"),
                                          null, false);
                             }
                             else
@@ -871,14 +871,14 @@ public class GoGui
             node = NodeUtil.findByVariation(node, variation);
             if (node == null)
             {
-                showError(i18n("MSG_BOOKMARK_INVALID_VARIATION"), "");
+                showError(I18n.i18n("MSG_BOOKMARK_INVALID_VARIATION"), "");
                 return;
             }
         }
         node = NodeUtil.findByMoveNumber(node, bookmark.m_move);
         if (node == null)
         {
-            showError(i18n("MSG_BOOKMARK_INVALID_MOVE_NUMBER"), "");
+            showError(I18n.i18n("MSG_BOOKMARK_INVALID_MOVE_NUMBER"), "");
             return;
         }
         actionGotoNode(node);
@@ -939,8 +939,8 @@ public class GoGui
             return;
         m_handicap = handicap;
         if (isModified())
-            showInfo(i18n("MSG_HANDICAP_NEXT_GAME"),
-                     i18n("MSG_HANDICAP_NEXT_GAME_2"), true);
+            showInfo(I18n.i18n("MSG_HANDICAP_NEXT_GAME"),
+                     I18n.i18n("MSG_HANDICAP_NEXT_GAME_2"), true);
         else
         {
             m_computerBlack = false;
@@ -959,7 +959,7 @@ public class GoGui
         String text = GuiUtil.getClipboardText();
         if (text == null)
         {
-            showError(i18n("MSG_NO_TEXT_IN_CLIPBOARD"), "", false);
+            showError(I18n.i18n("MSG_NO_TEXT_IN_CLIPBOARD"), "", false);
             return;
         }
         ByteArrayInputStream in = new ByteArrayInputStream(text.getBytes());
@@ -971,7 +971,7 @@ public class GoGui
         }
         catch (SgfError e)
         {
-            showError(i18n("MSG_IMPORT_FAILED"), e);
+            showError(I18n.i18n("MSG_IMPORT_FAILED"), e);
         }
         m_guiBoard.initSize(getBoard().getSize());
         initGtp();
@@ -986,7 +986,7 @@ public class GoGui
             return;
         if (! checkSaveGame())
             return;
-        File file = FileDialogs.showOpen(this, i18n("TIT_IMPORT_TEXT"));
+        File file = FileDialogs.showOpen(this, I18n.i18n("TIT_IMPORT_TEXT"));
         if (file == null)
             return;
         try
@@ -995,7 +995,7 @@ public class GoGui
         }
         catch (FileNotFoundException e)
         {
-            showError(i18n("MSG_FILE_NOT_FOUND"), "", false);
+            showError(I18n.i18n("MSG_FILE_NOT_FOUND"), "", false);
         }
     }
 
@@ -1007,7 +1007,7 @@ public class GoGui
             return;
         String text = GuiUtil.getClipboardText();
         if (text == null)
-            showError(i18n("MSG_NO_TEXT_IN_CLIPBOARD"), "", false);
+            showError(I18n.i18n("MSG_NO_TEXT_IN_CLIPBOARD"), "", false);
         else
             importTextPosition(new StringReader(text));
     }
@@ -1018,7 +1018,7 @@ public class GoGui
             return;
         if (m_interrupt.run(this, m_gtp, m_messageDialogs))
         {
-            showStatus(i18n("STAT_INTERRUPT"));
+            showStatus(I18n.i18n("STAT_INTERRUPT"));
             m_interruptComputerBoth = true;
         }
     }
@@ -1027,9 +1027,9 @@ public class GoGui
     {
         if (! checkStateChangePossible())
             return;
-        if (! showQuestion(i18n("MSG_KEEP_ONLY_POSITION"),
-                           i18n("MSG_KEEP_ONLY_POSITION_2"),
-                           i18n("LB_DELETE"), true))
+        if (! showQuestion(I18n.i18n("MSG_KEEP_ONLY_POSITION"),
+                           I18n.i18n("MSG_KEEP_ONLY_POSITION_2"),
+                           I18n.i18n("LB_DELETE"), true))
             return;
         m_game.keepOnlyPosition();
         initGtp();
@@ -1045,11 +1045,11 @@ public class GoGui
     {
         if (! checkStateChangePossible())
             return;
-        String disableKey = "net.sf.gogui.gogui.GoGui.make-main-variation";
+        String disableKey = "GoGui.make-main-variation";
         if (! m_messageDialogs.showQuestion(disableKey, this,
-                                            i18n("MSG_MAKE_MAIN_VAR"),
-                                            i18n("MSG_MAKE_MAIN_VAR_2"),
-                                            i18n("LB_MAKE_MAIN_VAR"), false))
+                                            I18n.i18n("MSG_MAKE_MAIN_VAR"),
+                                            I18n.i18n("MSG_MAKE_MAIN_VAR_2"),
+                                            I18n.i18n("LB_MAKE_MAIN_VAR"), false))
             return;
         m_game.makeMainVariation();
         boardChangedBegin(false, true);
@@ -1113,7 +1113,7 @@ public class GoGui
         m_newProgram = new Program("", "", "", "", "");
         final ProgramEditor editor = new ProgramEditor();
         m_newProgram =
-            editor.editItem(this, i18n("TIT_NEW_PROGRAM"), m_newProgram, true,
+            editor.editItem(this, I18n.i18n("TIT_NEW_PROGRAM"), m_newProgram, true,
                             false, m_messageDialogs);
         if (m_newProgram == null)
             return;
@@ -1125,7 +1125,7 @@ public class GoGui
                     if (m_gtp == null || m_gtp.isProgramDead())
                     {
                         m_newProgram = editor.editItem(GoGui.this,
-                                                       i18n("TIT_NEW_PROGRAM"),
+                                                       I18n.i18n("TIT_NEW_PROGRAM"),
                                                        m_newProgram, true,
                                                        false,
                                                        m_messageDialogs);
@@ -1138,7 +1138,7 @@ public class GoGui
                     m_newProgram.m_version = m_version;
                     m_newProgram.setUniqueLabel(m_programs);
                     m_newProgram = editor.editItem(GoGui.this,
-                                                   i18n("TIT_NEW_PROGRAM"),
+                                                   I18n.i18n("TIT_NEW_PROGRAM"),
                                                    m_newProgram, false, true,
                                                    m_messageDialogs);
                     if (m_newProgram == null)
@@ -1211,8 +1211,8 @@ public class GoGui
     {
         if (! checkStateChangePossible())
             return;
-        if (! showOptionalQuestion("pass", i18n("MSG_PASS"),
-                                   i18n("MSG_PASS_2"), i18n("LB_PASS"), false))
+        if (! showOptionalQuestion("pass", I18n.i18n("MSG_PASS"),
+                                   I18n.i18n("MSG_PASS_2"), I18n.i18n("LB_PASS"), false))
             return;
         humanMoved(Move.getPass(getToMove()));
     }
@@ -1312,7 +1312,7 @@ public class GoGui
                             }
                             catch (IOException e)
                             {
-                                showError(i18n("MSG_PARAM_TMP_FILE_ERROR"), e);
+                                showError(I18n.i18n("MSG_PARAM_TMP_FILE_ERROR"), e);
                                 return;
                             }
                             if (! saveParameters(file))
@@ -1353,14 +1353,14 @@ public class GoGui
             File file = m_gameFile.m_file;
             if (file.exists())
             {
-                String mainMessage = format(i18n("MSG_REPLACE_FILE"),
+                String mainMessage = format(I18n.i18n("MSG_REPLACE_FILE"),
                                             file.getName());
-                String optionalMessage = i18n("MSG_REPLACE_FILE_2");
+                String optionalMessage = I18n.i18n("MSG_REPLACE_FILE_2");
                 String disableKey = "net.sf.gogui.GoGui.overwrite";
                 if (! m_messageDialogs.showQuestion(disableKey, this,
                                                     mainMessage,
                                                     optionalMessage,
-                                                    i18n("LB_REPLACE_FILE"),
+                                                    I18n.i18n("LB_REPLACE_FILE"),
                                                     true))
                     return;
             }
@@ -1395,7 +1395,7 @@ public class GoGui
             return;
         if (! checkHasParameterCommands())
             return;
-        File file = showSave(i18n("TIT_SAVE_PARAM"));
+        File file = showSave(I18n.i18n("TIT_SAVE_PARAM"));
         if (file == null)
             return;
         saveParameters(file);
@@ -1417,7 +1417,7 @@ public class GoGui
             }
             catch (IOException e)
             {
-                showError(i18n("MSG_PARAM_TMP_FILE_ERROR"), e);
+                showError(I18n.i18n("MSG_PARAM_TMP_FILE_ERROR"), e);
                 return;
             }
         saveParameters(m_parameterSnapshot);
@@ -1433,15 +1433,15 @@ public class GoGui
         boolean programReady = (m_gtp != null && synchronizeProgram());
         if (m_gtp == null || ! programReady)
         {
-            String disableKey = "net.sf.gogui.gogui.GoGui.score-no-program";
+            String disableKey = "GoGui.score-no-program";
             String optionalMessage;
             if (m_gtp == null)
                 optionalMessage = "MSG_SCORE_NO_PROGRAM";
             else
                 optionalMessage = "MSG_SCORE_CANNOT_USE_PROGRAM";
             m_messageDialogs.showInfo(disableKey, this,
-                                      i18n("MSG_SCORE_MANUAL"),
-                                      i18n(optionalMessage), true);
+                                      I18n.i18n("MSG_SCORE_MANUAL"),
+                                      I18n.i18n(optionalMessage), true);
             updateViews(false);
             initScore(null);
             return;
@@ -1458,12 +1458,12 @@ public class GoGui
         else
         {
             String disableKey =
-                "net.sf.gogui.gogui.GoGui.score-not-supported";
+                "GoGui.score-not-supported";
             String optionalMessage;
             String name = getProgramName();
-            optionalMessage = format(i18n("MSG_SCORE_NO_SUPPORT"), name);
+            optionalMessage = format(I18n.i18n("MSG_SCORE_NO_SUPPORT"), name);
             m_messageDialogs.showInfo(disableKey, this,
-                                      i18n("MSG_SCORE_MANUAL"),
+                                      I18n.i18n("MSG_SCORE_MANUAL"),
                                       optionalMessage, true);
             updateViews(false);
             initScore(null);
@@ -1485,7 +1485,7 @@ public class GoGui
             return;
         if (GtpUtil.isStateChangingCommand(command))
         {
-            showError(i18n("MSG_BOARD_CHANGING_COMMAND"), "", false);
+            showError(I18n.i18n("MSG_BOARD_CHANGING_COMMAND"), "", false);
             return;
         }
         if (! synchronizeProgram())
@@ -1505,7 +1505,7 @@ public class GoGui
             return;
         if (m_shell == null)
             return;
-        File file = FileDialogs.showOpen(this, i18n("TIT_CHOOSE_GTP_FILE"));
+        File file = FileDialogs.showOpen(this, I18n.i18n("TIT_CHOOSE_GTP_FILE"));
         if (file == null)
             return;
         actionSendFile(file);
@@ -1612,9 +1612,9 @@ public class GoGui
         if (m_setupMode)
         {
             if (m_setupColor == BLACK)
-                showStatus(i18n("STAT_SETUP_BLACK"));
+                showStatus(I18n.i18n("STAT_SETUP_BLACK"));
             else
-                showStatus(i18n("STAT_SETUP_WHITE"));
+                showStatus(I18n.i18n("STAT_SETUP_WHITE"));
         }
     }
 
@@ -1783,11 +1783,11 @@ public class GoGui
             return;
         if (! getCurrentNode().hasFather())
             return;
-        String disableKey = "net.sf.gogui.gogui.GoGui.truncate";
+        String disableKey = "GoGui.truncate";
         if (! m_messageDialogs.showQuestion(disableKey, this,
-                                            i18n("MSG_TRUNCATE"),
-                                            i18n("MSG_TRUNCATE_2"),
-                                            i18n("LB_TRUNCATE"), false))
+                                            I18n.i18n("MSG_TRUNCATE"),
+                                            I18n.i18n("MSG_TRUNCATE_2"),
+                                            I18n.i18n("LB_TRUNCATE"), false))
             return;
         m_game.truncate();
         actionGotoNode(getCurrentNode());
@@ -1801,11 +1801,11 @@ public class GoGui
         int numberChildren = getCurrentNode().getNumberChildren();
         if (numberChildren == 0)
             return;
-        String disableKey = "net.sf.gogui.gogui.GoGui.truncate-children";
+        String disableKey = "GoGui.truncate-children";
         if (! m_messageDialogs.showQuestion(disableKey, this,
-                                            i18n("MSG_TRUNCATE_CHILDREN"),
-                                            i18n("MSG_TRUNCATE_CHILDREN_2"),
-                                            i18n("LB_TRUNCATE"), false))
+                                            I18n.i18n("MSG_TRUNCATE_CHILDREN"),
+                                            I18n.i18n("MSG_TRUNCATE_CHILDREN_2"),
+                                            I18n.i18n("LB_TRUNCATE"), false))
             return;
         m_game.truncateChildren();
         boardChangedBegin(false, true);
@@ -1845,7 +1845,7 @@ public class GoGui
         if (m_gtp != null)
             name = m_gtp.getName();
         if (name == null)
-            name = i18n("MSG_UNKNOWN_PROGRAM_NAME");
+            name = I18n.i18n("MSG_UNKNOWN_PROGRAM_NAME");
         return name;
     }
 
@@ -2036,13 +2036,13 @@ public class GoGui
             if (! checkCommandInProgress())
                 return;
             if (getBoard().isSuicide(getToMove(), p)
-                && ! showQuestion(i18n("MSG_SUICIDE"), i18n("MSG_SUICIDE_2"),
-                                  i18n("LB_SUICIDE"),false))
+                && ! showQuestion(I18n.i18n("MSG_SUICIDE"), I18n.i18n("MSG_SUICIDE_2"),
+                                  I18n.i18n("LB_SUICIDE"),false))
                 return;
             else if (getBoard().isKo(p)
-                     && ! showQuestion(i18n("MSG_ILLEGAL_KO"),
-                                       i18n("MSG_ILLEGAL_KO_2"),
-                                       i18n("LB_ILLEGAL_KO"), false))
+                     && ! showQuestion(I18n.i18n("MSG_ILLEGAL_KO"),
+                                       I18n.i18n("MSG_ILLEGAL_KO_2"),
+                                       I18n.i18n("LB_ILLEGAL_KO"), false))
                 return;
             Move move = Move.get(getToMove(), p);
             humanMoved(move);
@@ -2185,10 +2185,10 @@ public class GoGui
         public void run()
         {
             String name = getProgramName();
-            String mainMessage = format(i18n("MSG_INVALID_RESPONSE"), name);
-            String disableKey = "net.sf.gogui.gogui.GoGui.invalid-response";
+            String mainMessage = format(I18n.i18n("MSG_INVALID_RESPONSE"), name);
+            String disableKey = "GoGui.invalid-response";
             String optionalMessage =
-                format(i18n("MSG_INVALID_NOSTATUS_RESPONSE"), name);
+                format(I18n.i18n("MSG_INVALID_NOSTATUS_RESPONSE"), name);
             m_messageDialogs.showWarning(disableKey, GoGui.this, mainMessage,
                                          optionalMessage, true);
         }
@@ -2397,7 +2397,7 @@ public class GoGui
         m_lastAnalyzeCommand = m_analyzeCommand.replaceWildCards(toMove);
         runLengthyCommand(m_lastAnalyzeCommand,
                           new AnalyzeContinue(checkComputerMove));
-        showStatus(format(i18n("STAT_RUNNING"),
+        showStatus(format(I18n.i18n("STAT_RUNNING"),
                           m_analyzeCommand.getResultTitle()));
     }
 
@@ -2447,8 +2447,8 @@ public class GoGui
                 if (showText.indexOf("\n") < 0)
                 {
                     if (isTextType && showText.trim().equals(""))
-                        showText = i18n("STAT_ANALYZE_TEXT_EMPTY_RESPONSE");
-                    showStatus(format(i18n("STAT_ANALYZE_TEXT_RESPONSE"),
+                        showText = I18n.i18n("STAT_ANALYZE_TEXT_EMPTY_RESPONSE");
+                    showStatus(format(I18n.i18n("STAT_ANALYZE_TEXT_RESPONSE"),
                                       title, showText));
                 }
                 else
@@ -2597,7 +2597,7 @@ public class GoGui
             };
         try
         {
-            showStatusImmediately(i18n("STAT_ATTACHING_PROGRAM"));
+            showStatusImmediately(I18n.i18n("STAT_ATTACHING_PROGRAM"));
             File workingDirectory = null;
             if (program != null
                 && ! StringUtil.isEmpty(program.m_workingDirectory))
@@ -2652,7 +2652,7 @@ public class GoGui
             }
             catch (ErrorMessage e)
             {
-                showError(i18n("MSG_COULD_NOT_READ_ANALYZE_CONFIGURATION"), e);
+                showError(I18n.i18n("MSG_COULD_NOT_READ_ANALYZE_CONFIGURATION"), e);
             }
             restoreSize(m_shell, "shell");
             m_shell.setProgramName(getProgramLabel());
@@ -2688,7 +2688,7 @@ public class GoGui
     {
         setBoardCursor(Cursor.WAIT_CURSOR);
         m_shell.setCommandInProgess(true);
-        showStatus(format(i18n("STAT_THINKING"), getProgramName()));
+        showStatus(format(I18n.i18n("STAT_THINKING"), getProgramName()));
         updateViews(false);
     }
 
@@ -2718,8 +2718,8 @@ public class GoGui
     {
         if (isCommandInProgress())
         {
-            showError(i18n("MSG_CANNOT_EXECUTE_WHILE_THINKING"),
-                      i18n("MSG_CANNOT_EXECUTE_WHILE_THINKING_2"), false);
+            showError(I18n.i18n("MSG_CANNOT_EXECUTE_WHILE_THINKING"),
+                      I18n.i18n("MSG_CANNOT_EXECUTE_WHILE_THINKING_2"), false);
             return false;
         }
         return true;
@@ -2767,8 +2767,8 @@ public class GoGui
         if (! AnalyzeUtil.hasParameterCommands(m_analyzeCommands))
         {
             String optionalMessage =
-                format(i18n("MSG_NO_PARAM_COMMANDS_2"), getProgramName());
-            showError(i18n("MSG_NO_PARAM_COMMANDS"), optionalMessage);
+                format(I18n.i18n("MSG_NO_PARAM_COMMANDS_2"), getProgramName());
+            showError(I18n.i18n("MSG_NO_PARAM_COMMANDS"), optionalMessage);
             return false;
         }
         return true;
@@ -2785,14 +2785,14 @@ public class GoGui
             String optionalMessage;
             if (color == BLACK)
             {
-                mainMessage = i18n("MSG_LOST_ON_TIME_BLACK");
-                optionalMessage = format(i18n("MSG_LOST_ON_TIME_BLACK_2"),
+                mainMessage = I18n.i18n("MSG_LOST_ON_TIME_BLACK");
+                optionalMessage = format(I18n.i18n("MSG_LOST_ON_TIME_BLACK_2"),
                                          result);
             }
             else
             {
-                mainMessage = i18n("MSG_LOST_ON_TIME_WHITE");
-                optionalMessage = format(i18n("MSG_LOST_ON_TIME_WHITE_2"),
+                mainMessage = I18n.i18n("MSG_LOST_ON_TIME_WHITE");
+                optionalMessage = format(I18n.i18n("MSG_LOST_ON_TIME_WHITE_2"),
                                          result);
             }
             showInfo(mainMessage, optionalMessage, false);
@@ -2813,17 +2813,17 @@ public class GoGui
     {
         if (! isModified())
             return true;
-        String mainMessage = i18n("MSG_SAVE_CURRENT");
-        String optionalMessage = i18n("MSG_SAVE_CURRENT_2");
+        String mainMessage = I18n.i18n("MSG_SAVE_CURRENT");
+        String optionalMessage = I18n.i18n("MSG_SAVE_CURRENT_2");
         int result;
         String disableKey = null;
         if (! isProgramTerminating)
-            disableKey = "net.sf.gogui.gogui.GoGui.save";
+            disableKey = "GoGui.save";
         result = m_messageDialogs.showYesNoCancelQuestion(disableKey, this,
                                                           mainMessage,
                                                           optionalMessage,
-                                                          i18n("LB_DONT_SAVE"),
-                                                          i18n("LB_SAVE"));
+                                                          I18n.i18n("LB_DONT_SAVE"),
+                                                          I18n.i18n("LB_SAVE"));
         switch (result)
         {
         case 0:
@@ -2916,9 +2916,9 @@ public class GoGui
                     toMove.otherColor().getUppercaseLetter() + "+Resign";
                 if (! m_auto)
                 {
-                    String mainMessage = format(i18n("MSG_RESIGN"), name);
+                    String mainMessage = format(I18n.i18n("MSG_RESIGN"), name);
                     String optionalMessage =
-                        format(i18n("MSG_RESIGN_2"), result);
+                        format(I18n.i18n("MSG_RESIGN_2"), result);
                     showInfo(mainMessage, optionalMessage, false);
                 }
                 m_resigned = true;
@@ -2933,9 +2933,9 @@ public class GoGui
                     if (board.getColor(point) != EMPTY)
                     {
                         String mainMessage =
-                            format(i18n("MSG_NONEMPTY"), name);
+                            format(I18n.i18n("MSG_NONEMPTY"), name);
                         String optionalMessage =
-                            format(i18n("MSG_NONEMPTY_2"), name);
+                            format(I18n.i18n("MSG_NONEMPTY_2"), name);
                         showWarning(mainMessage, optionalMessage, true);
                         m_computerBlack = false;
                         m_computerWhite = false;
@@ -2943,8 +2943,8 @@ public class GoGui
                     else if (board.isKo(point))
                     {
                         String mainMessage =
-                            format(i18n("MSG_VIOLATE_KO"), name);
-                        showWarning(mainMessage, i18n("MSG_VIOLATE_KO_2"),
+                            format(I18n.i18n("MSG_VIOLATE_KO"), name);
+                        showWarning(mainMessage, I18n.i18n("MSG_VIOLATE_KO_2"),
                                     true);
                         m_computerBlack = false;
                         m_computerWhite = false;
@@ -2956,11 +2956,11 @@ public class GoGui
                 if (point == null && ! isComputerBoth())
                 {
                     String disableKey =
-                        "net.sf.gogui.gogui.GoGui.computer-passed";
+                        "GoGui.computer-passed";
                     String mainMessage =
-                        format(i18n("MSG_PROGRAM_PASS"), name);
+                        format(I18n.i18n("MSG_PROGRAM_PASS"), name);
                     String optionalMessage =
-                        format(i18n("MSG_PROGRAM_PASS_2"), name);
+                        format(I18n.i18n("MSG_PROGRAM_PASS_2"), name);
                     m_messageDialogs.showInfo(disableKey, this, mainMessage,
                                               optionalMessage, false);
                 }
@@ -3064,7 +3064,7 @@ public class GoGui
     private void detachProgram()
     {
         if (m_gtp != null)
-            showStatusImmediately(i18n("STAT_DETACHING"));
+            showStatusImmediately(I18n.i18n("STAT_DETACHING"));
         if (isCommandInProgress())
         {
             m_gtp.destroyGtp();
@@ -3324,7 +3324,7 @@ public class GoGui
         }
         catch (ParseError e)
         {
-            showError(i18n("MSG_IMPORT_FAILED"), e);
+            showError(I18n.i18n("MSG_IMPORT_FAILED"), e);
         }
         m_guiBoard.initSize(getBoard().getSize());
         initGtp();
@@ -3354,8 +3354,8 @@ public class GoGui
         Komi komi = (m_handicap == 0 ? getPrefsKomi() : new Komi(0));
         ConstPointList handicap = Board.getHandicapStones(size, m_handicap);
         if (handicap == null)
-            showWarning(i18n("MSG_HANDICAP_UNDEFINED"),
-                        format(i18n("MSG_HANDICAP_UNDEFINED_2"), m_handicap,
+            showWarning(I18n.i18n("MSG_HANDICAP_UNDEFINED"),
+                        format(I18n.i18n("MSG_HANDICAP_UNDEFINED_2"), m_handicap,
                                size), false);
         m_game.init(size, komi, handicap, m_prefs.get("rules", ""),
                     m_timeSettings);
@@ -3490,7 +3490,7 @@ public class GoGui
         Komi komi = getGameInfo().getKomi();
         m_scoreDialog.showScore(m_countScore, komi);
         m_scoreDialog.setVisible(true);
-        showStatus(i18n("STAT_SCORE"));
+        showStatus(I18n.i18n("STAT_SCORE"));
     }
 
     private boolean isComputerBoth()
@@ -3516,7 +3516,7 @@ public class GoGui
             if (file.length() > 500000)
             {
                 newGame(getBoardSize()); // Frees space if already large tree
-                GuiUtil.runProgress(this, i18n("LB_LOADING"), runnable);
+                GuiUtil.runProgress(this, I18n.i18n("LB_LOADING"), runnable);
             }
             else
                 runnable.run(null);
@@ -3538,11 +3538,11 @@ public class GoGui
             if (warnings != null)
             {
                 String optionalMessage =
-                    i18n("MSG_FILE_FORMAT_WARNING_2")
+                    I18n.i18n("MSG_FILE_FORMAT_WARNING_2")
                     + "\n(" +
                     warnings.replaceAll("\n\\z", "").replaceAll("\n", ")\n(")
                     + ")";
-                showWarning(i18n("MSG_FILE_FORMAT_WARNING"), optionalMessage,
+                showWarning(I18n.i18n("MSG_FILE_FORMAT_WARNING"), optionalMessage,
                             true);
             }
             m_computerBlack = false;
@@ -3551,17 +3551,17 @@ public class GoGui
         }
         catch (FileNotFoundException e)
         {
-            showError(i18n("MSG_FILE_NOT_FOUND"), e);
+            showError(I18n.i18n("MSG_FILE_NOT_FOUND"), e);
             return false;
         }
         catch (SgfError e)
         {
-            showError(i18n("MSG_COULD_NOT_READ_FILE"), e);
+            showError(I18n.i18n("MSG_COULD_NOT_READ_FILE"), e);
             return false;
         }
         catch (ErrorMessage e)
         {
-            showError(i18n("MSG_COULD_NOT_READ_FILE"), e);
+            showError(I18n.i18n("MSG_COULD_NOT_READ_FILE"), e);
             return false;
         }
         catch (Throwable t)
@@ -3717,12 +3717,12 @@ public class GoGui
     {
         try
         {
-            new GameWriter(gameFile, getTree(), i18n("LB_GOGUI"),
+            new GameWriter(gameFile, getTree(), I18n.i18n("LB_GOGUI"),
                            Version.get());
         }
         catch (ErrorMessage e)
         {
-            showError(i18n("MSG_SAVING_FAILED"), e);
+            showError(I18n.i18n("MSG_SAVING_FAILED"), e);
             return false;
         }
         m_menuBar.addRecent(gameFile.m_file);
@@ -3755,7 +3755,7 @@ public class GoGui
         }
         catch (ErrorMessage e)
         {
-            showError(i18n("MSG_COULD_NOT_SAVE_PARAMETERS"), e);
+            showError(I18n.i18n("MSG_COULD_NOT_SAVE_PARAMETERS"), e);
             return false;
         }
         return true;
@@ -3764,7 +3764,7 @@ public class GoGui
     private void savePosition(File file) throws FileNotFoundException
     {
         OutputStream out = new FileOutputStream(file);
-        new SgfWriter(out, getBoard(), i18n("LB_GOGUI"), Version.get());
+        new SgfWriter(out, getBoard(), I18n.i18n("LB_GOGUI"), Version.get());
         m_menuBar.addRecent(file);
         updateViews(false);
     }
@@ -3884,7 +3884,7 @@ public class GoGui
                         continue;
                     if (GtpUtil.isStateChangingCommand(line))
                     {
-                        showError(i18n("MSG_BOARD_CHANGING_COMMAND"), "");
+                        showError(I18n.i18n("MSG_BOARD_CHANGING_COMMAND"), "");
                         break;
                     }
                     try
@@ -3895,14 +3895,14 @@ public class GoGui
                     {
                         showError(e);
                         if (m_gtp.isProgramDead()
-                            || ! showQuestion(i18n("MSG_CONTINUE_SEND"), "",
-                                              i18n("LB_CONTINUE_SEND"), false))
+                            || ! showQuestion(I18n.i18n("MSG_CONTINUE_SEND"), "",
+                                              I18n.i18n("LB_CONTINUE_SEND"), false))
                             break;
                     }
                 }
                 catch (IOException e)
                 {
-                    showError(i18n("MSG_COULD_NOT_READ_FILE"), e);
+                    showError(I18n.i18n("MSG_COULD_NOT_READ_FILE"), e);
                     break;
                 }
             }
@@ -3927,7 +3927,7 @@ public class GoGui
         }
         catch (FileNotFoundException e)
         {
-            showError(i18n("MSG_FILE_NOT_FOUND"), e);
+            showError(I18n.i18n("MSG_FILE_NOT_FOUND"), e);
         }
     }
 
@@ -3992,10 +3992,10 @@ public class GoGui
         String oldResult = getGameInfo().get(StringInfo.RESULT);
         if (! (oldResult == null || oldResult.equals("")
                || oldResult.equals(result))
-            && ! showQuestion(format(i18n("MSG_REPLACE_RESULT"), oldResult,
+            && ! showQuestion(format(I18n.i18n("MSG_REPLACE_RESULT"), oldResult,
                                      result),
-                              i18n("MSG_REPLACE_RESULT_2"),
-                              i18n("LB_REPLACE_RESULT"), false))
+                              I18n.i18n("MSG_REPLACE_RESULT_2"),
+                              I18n.i18n("LB_REPLACE_RESULT"), false))
             return;
         m_game.setResult(result);
     }
@@ -4007,7 +4007,7 @@ public class GoGui
             setTitle(m_titleFromProgram);
             return;
         }
-        String appName = i18n("LB_GOGUI");
+        String appName = I18n.i18n("LB_GOGUI");
         if (m_gtp != null)
             appName = getProgramLabel();
         String filename = null;
@@ -4035,7 +4035,7 @@ public class GoGui
             String name = getProgramLabel();
             String nameBlack = info.get(StringInfoColor.NAME, BLACK);
             String nameWhite = info.get(StringInfoColor.NAME, WHITE);
-            if (! appName.equals(i18n("LB_GOGUI"))
+            if (! appName.equals(I18n.i18n("LB_GOGUI"))
                 && (ObjectUtil.equals(nameBlack, name)
                     || ObjectUtil.equals(nameWhite, name)))
                 setTitle(gameName);
@@ -4092,9 +4092,9 @@ public class GoGui
     private void showError(GtpResponseFormatError e)
     {
         String name = getProgramName();
-        String mainMessage = format(i18n("MSG_INVALID_RESPONSE"), name);
+        String mainMessage = format(I18n.i18n("MSG_INVALID_RESPONSE"), name);
         String optionalMessage =
-            format(i18n("MSG_INVALID_RESPONSE_2"), name, e.getMessage());
+            format(I18n.i18n("MSG_INVALID_RESPONSE_2"), name, e.getMessage());
         showError(mainMessage, optionalMessage, true);
     }
 
@@ -4106,38 +4106,38 @@ public class GoGui
         if (m_gtp != null && m_gtp.isProgramDead())
         {
             if (m_gtp.wasKilled())
-                mainMessage = format(i18n("MSG_PROGRAM_TERMINATED"), name);
+                mainMessage = format(I18n.i18n("MSG_PROGRAM_TERMINATED"), name);
             else
-                mainMessage = i18n("MSG_PROGRAM_TERMINATED_UNEXPECTEDLY");
+                mainMessage = I18n.i18n("MSG_PROGRAM_TERMINATED_UNEXPECTEDLY");
             boolean hasErrorOutput = m_shell.isLastTextNonGTP();
             boolean anyResponses = m_gtp.getAnyCommandsResponded();
             if (hasErrorOutput && ! anyResponses)
                 optionalMessage =
-                    format(i18n("MSG_PROGRAM_TERMINATED_2"), name);
+                    format(I18n.i18n("MSG_PROGRAM_TERMINATED_2"), name);
             else if (hasErrorOutput && anyResponses)
                 optionalMessage =
-                    format(i18n("MSG_PROGRAM_TERMINATED_3"), name);
+                    format(I18n.i18n("MSG_PROGRAM_TERMINATED_3"), name);
             else
-                optionalMessage = i18n("MSG_PROGRAM_TERMINATED_4");
+                optionalMessage = I18n.i18n("MSG_PROGRAM_TERMINATED_4");
         }
         else if (e instanceof GtpClient.ExecFailed)
         {
-            mainMessage = i18n("MSG_COULD_NOT_EXECUTE");
+            mainMessage = I18n.i18n("MSG_COULD_NOT_EXECUTE");
             if (StringUtil.isEmpty(e.getMessage()))
-                optionalMessage = i18n("MSG_COULD_NOT_EXECUTE_2");
+                optionalMessage = I18n.i18n("MSG_COULD_NOT_EXECUTE_2");
             else
                 optionalMessage =
-                    format(i18n("MSG_COULD_NOT_EXECUTE_3"), e.getMessage());
+                    format(I18n.i18n("MSG_COULD_NOT_EXECUTE_3"), e.getMessage());
         }
         else
         {
-            mainMessage = i18n("MSG_COMMAND_FAILED");
+            mainMessage = I18n.i18n("MSG_COMMAND_FAILED");
             if (e.getMessage().trim().equals(""))
                 optionalMessage =
-                    format(i18n("MSG_COMMAND_FAILED_2"), e.getCommand());
+                    format(I18n.i18n("MSG_COMMAND_FAILED_2"), e.getCommand());
             else
                 optionalMessage =
-                    format(i18n("MSG_COMMAND_FAILED_3"), e.getCommand(),
+                    format(I18n.i18n("MSG_COMMAND_FAILED_3"), e.getCommand(),
                            e.getMessage());
         }
         showError(mainMessage, optionalMessage, isCritical);
@@ -4160,10 +4160,10 @@ public class GoGui
     {
         if (m_resigned)
             return;
-        String disableKey = "net.sf.gogui.gogui.GoGui.game-finished";
+        String disableKey = "GoGui.game-finished";
         m_messageDialogs.showInfo(disableKey, this,
-                                  i18n("MSG_GAME_FINISHED"),
-                                  i18n("MSG_GAME_FINISHED_2"), false);
+                                  I18n.i18n("MSG_GAME_FINISHED"),
+                                  I18n.i18n("MSG_GAME_FINISHED_2"), false);
     }
 
     private void showInfo(String mainMessage, String optionalMessage,
@@ -4200,7 +4200,7 @@ public class GoGui
                                          String destructiveOption,
                                          boolean isCritical)
     {
-        String disableKey = "net.sf.gogui.gogui.GoGui" + id;
+        String disableKey = "GoGui" + id;
         return m_messageDialogs.showQuestion(disableKey, this, mainMessage,
                                              optionalMessage,
                                              destructiveOption, isCritical);
@@ -4244,13 +4244,13 @@ public class GoGui
 
     private void showStatusSelectPointList()
     {
-        showStatus(format(i18n("STAT_SELECT_POINTLIST"),
+        showStatus(format(I18n.i18n("STAT_SELECT_POINTLIST"),
                           m_analyzeCommand.getLabel()));
     }
 
     private void showStatusSelectTarget()
     {
-        showStatus(format(i18n("STAT_SELECT_TARGET"),
+        showStatus(format(I18n.i18n("STAT_SELECT_TARGET"),
                           m_analyzeCommand.getResultTitle()));
     }
 
@@ -4280,7 +4280,7 @@ public class GoGui
     {
         if (m_gtp == null)
         {
-            showError(i18n("MSG_NO_PROGRAM_ATTACHED"), "", false);
+            showError(I18n.i18n("MSG_NO_PROGRAM_ATTACHED"), "", false);
             return false;
         }
         if (! checkCommandInProgress())
@@ -4288,19 +4288,19 @@ public class GoGui
         String name = getProgramName();
         if (m_gtp.isProgramDead())
         {
-            String mainMessage = format(i18n("MSG_PROGRAM_TERMINATED"), name);
+            String mainMessage = format(I18n.i18n("MSG_PROGRAM_TERMINATED"), name);
             String optionalMessage = "";
             if (m_shell.isLastTextNonGTP())
             {
                 showShell();
                 optionalMessage =
-                    format(i18n("MSG_PROGRAM_TERMINATED_CHECK_GTP"), name);
+                    format(I18n.i18n("MSG_PROGRAM_TERMINATED_CHECK_GTP"), name);
             }
             else
             {
                 showShell();
                 optionalMessage =
-                    format(i18n("MSG_PROGRAM_TERMINATED_REATTACH"), name);
+                    format(I18n.i18n("MSG_PROGRAM_TERMINATED_REATTACH"), name);
             }
             showError(mainMessage, optionalMessage, false);
             // If program died, menu items need to be updated
@@ -4318,14 +4318,14 @@ public class GoGui
         {
             if (wasOutOfSync)
             {
-                String mainMessage = format(i18n("MSG_OUT_OF_SYNC"), name);
-                String optionalMessage = format(i18n("MSG_OUT_OF_SYNC_2"),
+                String mainMessage = format(I18n.i18n("MSG_OUT_OF_SYNC"), name);
+                String optionalMessage = format(I18n.i18n("MSG_OUT_OF_SYNC_2"),
                                                 name);
                 showError(mainMessage, optionalMessage, false);
             }
             else
             {
-                String mainMessage = format(i18n("MSG_NOSYNC"), name);
+                String mainMessage = format(I18n.i18n("MSG_NOSYNC"), name);
                 String command = null;
                 if (e.getCommand() != null)
                     command = formatCommand(e.getCommand());
@@ -4336,14 +4336,14 @@ public class GoGui
                 String optionalMessage;
                 if (command == null)
                     optionalMessage =
-                        format(i18n("MSG_NOSYNC_ERROR"), name, message);
+                        format(I18n.i18n("MSG_NOSYNC_ERROR"), name, message);
                 else if (response == null)
                     optionalMessage =
-                        format(i18n("MSG_NOSYNC_FAILURE"),
+                        format(I18n.i18n("MSG_NOSYNC_FAILURE"),
                                command, name);
                 else
                     optionalMessage =
-                        format(i18n("MSG_NOSYNC_FAILURE_RESPONSE"),
+                        format(I18n.i18n("MSG_NOSYNC_FAILURE_RESPONSE"),
                                command, name, response);
                 showWarning(mainMessage, optionalMessage, true);
                 // If the program died, menu items need to be updated
@@ -4407,7 +4407,7 @@ public class GoGui
                 else
                 {
                     protectGui();
-                    showStatus(i18n("STAT_UPDATING_TREE"));
+                    showStatus(I18n.i18n("STAT_UPDATING_TREE"));
                     Runnable runnable = new Runnable() {
                             public void run() {
                                 try

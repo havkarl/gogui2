@@ -95,7 +95,7 @@ public final class GtpClientUtil
 
     /** Save parameters to a GTP file.
         Sends all analyze commands of type "param" to the program to query the
-        current parameter values and creates a config file with GTP commands
+        current parameter values and creates a net.sf.gogui.xml.config file with GTP commands
         that allows to restore the values.
         @param gtp The GTP connection.
         @param analyzeCommands The analyze command definitions for this

@@ -20,7 +20,7 @@ public final class Main
         try
         {
             String options[] = {
-                "config:",
+                "net.sf.gogui.xml.config:",
                 "fillpasses",
                 "gtpfile:",
                 "help",
@@ -95,7 +95,7 @@ public final class Main
         String helpText =
             "Usage: gogui-adapter program\n" +
             "\n" +
-            "-config       config file\n" +
+            "-net.sf.gogui.xml.config       net.sf.gogui.xml.config file\n" +
             "-fillpasses   fill non-alternating moves with pass moves\n" +
             "-gtpfile      file with GTP commands to send at startup\n" +
             "-help         print help and exit\n" +

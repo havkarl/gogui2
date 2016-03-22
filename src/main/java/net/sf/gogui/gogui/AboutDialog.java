@@ -7,7 +7,6 @@ import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.event.KeyEvent;
 import java.net.URL;
-import static java.text.MessageFormat.format;
 import javax.swing.JDialog;
 import javax.swing.JEditorPane;
 import javax.swing.JOptionPane;
@@ -18,6 +17,8 @@ import javax.swing.UIManager;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 import javax.swing.text.EditorKit;
+
+import static java.text.MessageFormat.format;
 import static net.sf.gogui.gogui.I18n.i18n;
 import net.sf.gogui.gui.GuiUtil;
 import net.sf.gogui.gui.MessageDialogs;

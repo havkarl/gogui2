@@ -204,15 +204,15 @@ public class Options
         }
     }
 
-    /** Read options from a file given with the option "config".
-        Requires that "config" is an allowed option.
+    /** Read options from a file given with the option "net.sf.gogui.xml.config".
+        Requires that "net.sf.gogui.xml.config" is an allowed option.
         @throws ErrorMessage If options in file are not valid according to
         the specification. */
     public void handleConfigOption() throws ErrorMessage
     {
-        if (! contains("config"))
+        if (! contains("net.sf.gogui.xml.config"))
             return;
-        String filename = get("config");
+        String filename = get("net.sf.gogui.xml.config");
         InputStream inputStream;
         try
         {

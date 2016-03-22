@@ -19,7 +19,7 @@ public final class Main
         {
             String options[] = {
                 "color",
-                "config:",
+                "net.sf.gogui.xml.config:",
                 "help",
                 "size:",
                 "verbose",
@@ -70,7 +70,7 @@ public final class Main
             "Usage: gogui-terminal program\n" +
             "\n" +
             "-color        colorize go board\n" +
-            "-config       config file\n" +
+            "-net.sf.gogui.xml.config       net.sf.gogui.xml.config file\n" +
             "-help         print help and exit\n" +
             "-size n       board size (default 19)\n" +
             "-verbose      print debug information\n" +

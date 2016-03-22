@@ -17,7 +17,7 @@ public final class Main
         try
         {
             String options[] = {
-                "config:",
+                "net.sf.gogui.xml.config:",
                 "gtpfile:",
                 "help",
                 "long",
@@ -73,7 +73,7 @@ public final class Main
         out.print("Usage: gogui-regress [options] program test.tst"
                   + " [...]\n" +
                   "\n" +
-                  "-config       Config file\n" +
+                  "-net.sf.gogui.xml.config       Config file\n" +
                   "-gtpfile      GTP file to execute before each test\n" +
                   "-help         Display this help and exit\n" +
                   "-long         Longer output to standard out\n" +

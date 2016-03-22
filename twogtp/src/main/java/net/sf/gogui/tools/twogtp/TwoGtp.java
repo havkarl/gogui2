@@ -692,7 +692,7 @@ public class TwoGtp
             // engine mode again (by transforming the opening file into a
             // sequence of alternating moves, replacing setup stones by moves
             // and filling in passes). See also comment in initGame() and
-            // doc/manual/xml/reference-twogtp.xml
+            // net.sf.gogui.xml.doc/manual/xml/reference-twogtp.xml
             ConstNode child = getCurrentNode().getChildConst();
             Move move = child.getMove();
             if (move.getColor() != color)

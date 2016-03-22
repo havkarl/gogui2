@@ -76,7 +76,7 @@ public final class Main
         try
         {
             String options[] = {
-                "config:",
+                "net.sf.gogui.xml.config:",
                 "help",
                 "timeout:",
                 "version"
@@ -115,7 +115,7 @@ public final class Main
         String text =
             "Usage: gogui-client [options] hostname port\n" +
             "\n" +
-            "-config  config file\n" +
+            "-net.sf.gogui.xml.config  net.sf.gogui.xml.config file\n" +
             "-help    display this help and exit\n" +
             "-timeout stop trying to connect after n seconds (default 10)\n" +
             "-version print version and exit\n";

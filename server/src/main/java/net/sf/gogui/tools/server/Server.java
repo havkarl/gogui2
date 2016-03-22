@@ -85,7 +85,7 @@ public final class Server
         try
         {
             String options[] = {
-                "config:",
+                "net.sf.gogui.xml.config:",
                 "help",
                 "loop",
                 "port:",
@@ -179,7 +179,7 @@ public final class Server
     {
         out.print("Usage: gogui-server [options] program\n" +
                   "\n" +
-                  "-config  config file\n" +
+                  "-net.sf.gogui.xml.config  net.sf.gogui.xml.config file\n" +
                   "-help    display this help and exit\n" +
                   "-loop    restart after connection finished\n" +
                   "-port    port of network connection\n" +

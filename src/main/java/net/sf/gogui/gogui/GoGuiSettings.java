@@ -60,7 +60,7 @@ public final class GoGuiSettings
             "computer-both",
             "computer-none",
             "computer-white",
-            "config:",
+            "net.sf.gogui.xml.config:",
             "gtpfile:",
             "help",
             "komi:",
@@ -156,7 +156,7 @@ public final class GoGuiSettings
             "-computer-both    Computer plays both sides\n" +
             "-computer-none    Computer plays no side\n" +
             "-computer-white   Computer plays white\n" +
-            "-config           Config file\n" +
+            "-net.sf.gogui.xml.config           Config file\n" +
             "-gtpfile          Send GTP file at startup\n" +
             "-help             Display this help and exit\n" +
             "-komi             Set komi\n" +

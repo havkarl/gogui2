@@ -17,7 +17,7 @@ public final class Main
         try
         {
             String options[] = {
-                "config:",
+                "net.sf.gogui.xml.config:",
                 "help",
                 "laf:",
                 "verbose",
@@ -67,7 +67,7 @@ public final class Main
         String helpText =
             "Usage: gogui-display program\n" +
             "\n" +
-            "-config       Config file\n" +
+            "-net.sf.gogui.xml.config       Config file\n" +
             "-help         Print help and exit\n" +
             "-laf          Set Swing look and feel\n" +
             "-verbose      Log GTP stream to stderr\n" +

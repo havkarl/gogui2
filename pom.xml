@@ -8,7 +8,15 @@
     <artifactId>gogui</artifactId>
     <packaging>pom</packaging>
     <version>2.0-SNAPSHOT</version>
+
+    <parent>
+        <groupId>bps-pom</groupId>
+        <artifactId>jar</artifactId>
+        <version>1.9-SNAPSHOT</version>
+    </parent>
+
     <modules>
+        <module>game</module>
         <module>mac</module>
         <module>adapter</module>
         <module>client</module>
@@ -21,7 +29,7 @@
         <module>thumbnailer</module>
         <module>twogtp</module>
         <module>dummy</module>
-        <module>game</module>
+        <module>gogui</module>
     </modules>
 
     <properties>
@@ -32,7 +40,6 @@
         <build.plugins.plugin.version>1.2.8.RELEASE</build.plugins.plugin.version>
     </properties>
 
-
     <build>
         <plugins>
             <plugin>
@@ -42,7 +49,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>net.sf.gogui.gogui.Main</mainClass>
+                            <mainClass>net.sf.gogui.gogui.MainWrapper</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -59,9 +66,17 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>net.sf.gogui.gogui.Main</mainClass>
+                    <mainClass>net.sf.gogui.gogui.MainWrapper</mainClass>
                 </configuration>
             </plugin>
         </plugins>
     </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.devzendo</groupId>
+            <artifactId>Quaqua</artifactId>
+            <version>7.3.4</version>
+        </dependency>
+    </dependencies>
 </project>

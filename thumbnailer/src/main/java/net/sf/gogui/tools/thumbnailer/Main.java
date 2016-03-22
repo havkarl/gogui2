@@ -20,7 +20,7 @@ public final class Main
         {
             String options[] = {
                 //"check-expire:", // experimental; needs more testing
-                "config:",
+                "net.sf.gogui.xml.config:",
                 //"expire:", // experimental; needs more testing
                 "help",
                 "scale",
@@ -93,7 +93,7 @@ public final class Main
         String helpText =
             "Usage: gogui-thumbnailer [options] input [output]\n" +
             "Options:\n" +
-            "-config    config file\n" +
+            "-net.sf.gogui.xml.config    net.sf.gogui.xml.config file\n" +
             "-help      Print help and exit\n" +
             "-scale     Scale size for board sizes other than 19x19\n" +
             "-size      Thumbnail size in pixels\n" +

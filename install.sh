@@ -62,15 +62,15 @@ for FILE in bin/*; do
     fi
 done
 
-# Install files to $PREFIX/share/doc/gogui
+# Install files to $PREFIX/share/net.sf.gogui.xml.doc/gogui
 
-install -d "$PREFIX/share/doc/gogui"
-install -m 644 doc/manual/html/*.html "$PREFIX/share/doc/gogui"
+install -d "$PREFIX/share/net.sf.gogui.xml.doc/gogui"
+install -m 644 net.sf.gogui.xml.doc/manual/html/*.html "$PREFIX/share/net.sf.gogui.xml.doc/gogui"
 
 # Install files to $PREFIX/share/man
 
 install -d "$PREFIX/share/man/man1"
-install -m 644 doc/manual/man/*.1 "$PREFIX/share/man/man1"
+install -m 644 net.sf.gogui.xml.doc/manual/man/*.1 "$PREFIX/share/man/man1"
 
 # Install icons
 
@@ -81,30 +81,30 @@ install -d "$PREFIX/share/icons/hicolor/scalable/apps"
 install -m 644 src/net/sf/gogui/images/gogui.svg \
     "$PREFIX/share/icons/hicolor/scalable/apps"
 install -d "$PREFIX/share/icons/hicolor/48x48/mimetypes"
-install -m 644 config/application-x-go-sgf.png \
+install -m 644 net.sf.gogui.xml.config/application-x-go-sgf.png \
     "$PREFIX/share/icons/hicolor/48x48/mimetypes"
 
 # Install desktop entry
 
 install -d "$PREFIX/share/applications"
-install -m 644 config/gogui.desktop "$PREFIX/share/applications"
+install -m 644 net.sf.gogui.xml.config/gogui.desktop "$PREFIX/share/applications"
 
 # Install shared mime info
 
 install -d "$PREFIX/share/mime/packages"
-install -m 644 config/gogui-mime.xml "$PREFIX/share/mime/packages"
+install -m 644 net.sf.gogui.xml.config/gogui-mime.xml "$PREFIX/share/mime/packages"
 
 # Install Gnome 2 thumbnailer
 
 install -d "$SYSCONFDIR/gconf/schemas"
-cat config/gogui.schemas \
+cat net.sf.gogui.xml.config/gogui.schemas \
 | sed "s;/usr/bin/gogui-thumbnailer;$PREFIX/bin/gogui-thumbnailer;" \
 > "$SYSCONFDIR/gconf/schemas/gogui.schemas"
 
 # Install Gnome 3 thumbnailer
 
 install -d "$PREFIX/share/thumbnailers"
-cat config/gogui.thumbnailer \
+cat net.sf.gogui.xml.config/gogui.thumbnailer \
 | sed "s;/usr/bin/gogui-thumbnailer;$PREFIX/bin/gogui-thumbnailer;" \
 > "$PREFIX/share/thumbnailers/gogui.thumbnailer"
 

@@ -29,7 +29,7 @@ public final class Main
         {
             String options[] = {
                 "check",
-                "config:",
+                "net.sf.gogui.xml.config:",
                 "force",
                 "format:",
                 "help",
@@ -121,7 +121,7 @@ public final class Main
         out.print("Usage: gogui-convert infile outfile\n" +
                   "\n" +
                   "-check   only check reading a file\n" +
-                  "-config  config file\n" +
+                  "-net.sf.gogui.xml.config  net.sf.gogui.xml.config file\n" +
                   "-force   overwrite existing files\n" +
                   "-format  output format (sgf,tex,xml)\n" +
                   "-help    display this help and exit\n" +

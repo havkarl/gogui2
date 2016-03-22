@@ -23,7 +23,7 @@ public final class Main
                 "backward",
                 "begin:",
                 "commands:",
-                "config:",
+                "net.sf.gogui.xml.config:",
                 "final:",
                 "force",
                 "help",
@@ -149,7 +149,7 @@ public final class Main
                   "-backward     Iterate backward from end position\n" +
                   "-begin        GTP commands to run on begin positions\n" +
                   "-commands     GTP commands to run (comma separated)\n" +
-                  "-config       Config file\n" +
+                  "-net.sf.gogui.xml.config       Config file\n" +
                   "-final        GTP commands to run on final positions\n" +
                   "-force        Overwrite existing file\n" +
                   "-help         Display this help and exit\n" +

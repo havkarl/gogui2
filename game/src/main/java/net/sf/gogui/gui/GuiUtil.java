@@ -95,7 +95,7 @@ public class GuiUtil
 
     /** Wrapper object for JComboBox items.
         JComboBox can have focus and keyboard navigation problems if duplicate
-        String objects are added. See JDK 1.5 doc for JComboBox.addItem. */
+        String objects are added. See JDK 1.5 net.sf.gogui.xml.doc for JComboBox.addItem. */
     public static Object createComboBoxItem(final String item)
     {
         return new Object() {

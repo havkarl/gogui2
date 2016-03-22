@@ -2,11 +2,12 @@
 
 package net.sf.gogui.gogui;
 
-import static java.text.MessageFormat.format;
 import net.sf.gogui.game.ConstGame;
 import net.sf.gogui.game.ConstNode;
 import net.sf.gogui.game.NodeUtil;
 import net.sf.gogui.go.Move;
+
+import static java.text.MessageFormat.format;
 import static net.sf.gogui.gogui.I18n.i18n;
 import net.sf.gogui.gui.StatusBar;
 

@@ -43,7 +43,7 @@ public final class Main
         {
             settings =
                 new GoGuiSettings(args,
-                                  Class.forName("net.sf.gogui.gogui.GoGui"));
+                                  Class.forName("GoGui"));
             if (settings.m_noStartup)
                 return;
             startGoGui(settings);
