@@ -10,12 +10,8 @@ import static net.sf.gogui.go.GoColor.EMPTY;
 import static net.sf.gogui.go.GoColor.BLACK_WHITE;
 
 /** Go board. */
-public final class Board
-    implements ConstBoard
-{
-    public class BoardIterator
-        implements Iterator<GoPoint>
-    {
+public final class Board implements ConstBoard  {
+    public class BoardIterator  implements Iterator<GoPoint>  {
         public boolean hasNext()
         {
             return m_iterator.hasNext();

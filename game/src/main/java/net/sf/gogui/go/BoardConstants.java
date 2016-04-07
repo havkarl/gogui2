@@ -158,21 +158,21 @@ public final class BoardConstants
             m_handicapLine2 = -1;
         m_allPoints = new PointList();
         m_adjacent = new ConstPointList[GoPoint.NUMBER_INDEXES];
-        for (int x = 0; x < m_size; ++x)
-            for (int y = 0; y < m_size; ++y)
-            {
-                GoPoint p = GoPoint.get(x, y);
-                m_allPoints.add(p);
-                PointList adjacent = new PointList();
-                if (x > 0)
-                    adjacent.add(GoPoint.get(x - 1, y));
-                if (x < m_size - 1)
-                    adjacent.add(GoPoint.get(x + 1, y));
-                if (y > 0)
-                    adjacent.add(GoPoint.get(x, y - 1));
-                if (y < m_size - 1)
-                    adjacent.add(GoPoint.get(x, y + 1));
-                m_adjacent[p.getIndex()] = adjacent;
-            }
+        for (int x = 0; x < m_size; ++x) {
+			for (int y = 0; y < m_size; ++y) {
+				GoPoint p = GoPoint.get(x, y);
+				m_allPoints.add(p);
+				PointList adjacent = new PointList();
+				if (x > 0)
+					adjacent.add(GoPoint.get(x - 1, y));
+				if (x < m_size - 1)
+					adjacent.add(GoPoint.get(x + 1, y));
+				if (y > 0)
+					adjacent.add(GoPoint.get(x, y - 1));
+				if (y < m_size - 1)
+					adjacent.add(GoPoint.get(x, y + 1));
+				m_adjacent[p.getIndex()] = adjacent;
+			}
+		}
     }
 }

@@ -150,14 +150,11 @@ public class Program
 
     public void sendIfSupported(String cmd, String cmdLine)
     {
-        if (! m_gtp.isSupported(cmd))
-            return;
-        try
-        {
+        if (! m_gtp.isSupported(cmd)) return;
+        try  {
             m_gtp.send(cmdLine);
-        }
-        catch (GtpError e)
-        {
+        }  catch (GtpError e)  {
+			//TODO: What to do here?
         }
     }
 

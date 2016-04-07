@@ -11,9 +11,7 @@ import net.sf.gogui.util.StringUtil;
     Point coordinates start with 0, the point (0,0) corresponds to "A1"
     and is on the lower left corner of the board, if the board is drawn on
     the screen. */
-public final class GoPoint
-    implements Comparable<GoPoint>
-{
+public final class GoPoint implements Comparable<GoPoint> {
     /** Maximum board size.
         Set such that all points can be converted to strings with one letter
         and a number, i.e. the largest point is Z25. */
@@ -28,14 +26,14 @@ public final class GoPoint
 
     /** Compare two points.
         The order of the points is: A1, B1, ..., A2, B2, ... */
-    public int compareTo(GoPoint p)
-    {
-        if (m_index < p.m_index)
-            return -1;
-        else if (m_index > p.m_index)
-            return 1;
-        else
-            return 0;
+    public int compareTo(GoPoint p) {
+		if (m_index < p.m_index) {
+			return -1;
+		} else if (m_index > p.m_index) {
+			return 1;
+		} else {
+			return 0;
+		}
     }
 
     /** Indicate if this object is equal to another object.
@@ -110,8 +108,7 @@ public final class GoPoint
         return m_y;
     }
 
-    public boolean isOnBoard(int size)
-    {
+    public boolean isOnBoard(int size) {
         assert size > 0;
         assert size <= MAX_SIZE;
         return (m_x < size && m_y < size);
@@ -119,8 +116,7 @@ public final class GoPoint
 
     /** Return point left.
         @return the point below this point (x - 1, y) */
-    public GoPoint left()
-    {
+    public GoPoint left() {
         if (m_x > 0)
             return get(m_x - 1, m_y);
         else
@@ -131,25 +127,23 @@ public final class GoPoint
         Parsing is case-insensitive, leading and trailing whitespace is
         ignored. "PASS" returns null, invalid strings throw an
         InvalidPointException. */
-    public static GoPoint parsePoint(String string, int boardSize)
-        throws InvalidPointException
-    {
+    public static GoPoint parsePoint(String string, int boardSize) throws InvalidPointException  {
         string = string.trim().toUpperCase(Locale.ENGLISH);
-        if (string.equals("PASS"))
-            return null;
+        if (string.equals("PASS")) return null;
+
         if (string.length() < 2)
             throw new InvalidPointException(string);
         char xChar = string.charAt(0);
+		/**
+		 * TODO: Why is this here?
         if (xChar >= 'J')
             --xChar;
+		 **/
         int x = xChar - 'A';
         int y;
-        try
-        {
+        try  {
             y = Integer.parseInt(string.substring(1)) - 1;
-        }
-        catch (NumberFormatException e)
-        {
+        } catch (NumberFormatException e) {
             throw new InvalidPointException(string);
         }
         if (x < 0 || x >= boardSize || y < 0 || y >= boardSize)
@@ -157,9 +151,7 @@ public final class GoPoint
         return GoPoint.get(x, y);
     }
 
-    public static PointList parsePointList(String s, int boardSize)
-        throws InvalidPointException
-    {
+    public static PointList parsePointList(String s, int boardSize) throws InvalidPointException {
         PointList list = new PointList();
         for (String p : StringUtil.splitArguments(s))
             if (! p.equals(""))
@@ -171,8 +163,7 @@ public final class GoPoint
         @param max Current board size.
         @return The point to the right of this point (x, y + 1)
         or this point if no such point exists. */
-    public GoPoint right(int max)
-    {
+    public GoPoint right(int max) {
         if (m_x < max - 1)
             return get(m_x + 1, m_y);
         else
@@ -189,8 +180,7 @@ public final class GoPoint
     /** Convert a point or null point (pass) to a string.
         @param point Point or null for pass moves
         @return point.toString() or "PASS" if point is null */
-    public static String toString(GoPoint point)
-    {
+    public static String toString(GoPoint point) {
         if (point == null)
             return "PASS";
         return point.toString();
@@ -199,8 +189,7 @@ public final class GoPoint
     /** Convert a list of points to a string.
         Points are separated by a single space.
         If pointList is null, "(null)" is returned. */
-    public static String toString(ConstPointList pointList)
-    {
+    public static String toString(ConstPointList pointList) {
         if (pointList == null)
             return "(null)";
         int length = pointList.size();
@@ -218,8 +207,7 @@ public final class GoPoint
         @param max Current board size.
         @return The point above this point (x, y + 1) or this point if no such
         point exists. */
-    public GoPoint up(int max)
-    {
+    public GoPoint up(int max) {
         if (m_y < max - 1)
             return get(m_x, m_y + 1);
         else

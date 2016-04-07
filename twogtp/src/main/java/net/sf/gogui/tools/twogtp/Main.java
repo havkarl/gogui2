@@ -204,14 +204,11 @@ public final class Main
     }
 
     /** Make constructor unavailable; class is for namespace only. */
-    private Main()
-    {
-    }
+    private Main() {}
 }
 
-class TwoGtpThread
-    extends Thread
-{
+class TwoGtpThread extends Thread {
+
     public TwoGtpThread(TwoGtp twoGtp)
     {
         m_twoGtp = twoGtp;
@@ -224,16 +221,11 @@ class TwoGtpThread
 
     public void run()
     {
-        try
-        {
+        try  {
             m_twoGtp.autoPlay();
-        }
-        catch (Exception e)
-        {
+        }  catch (Exception e) {
             m_exception = e;
-        }
-        finally
-        {
+        } finally {
             m_twoGtp.close();
         }
     }
